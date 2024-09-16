@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box
+        }
+        .box {
+            border: solid 2px #666;
+
+            position: relative;
+
+            & * {
+                margin: 0;
+                padding: 0;
+                position: absolute;
+            }
+            & .width-text{
+                left: 50%;
+                transform: translate(-50%, 0%);
+            }
+
+            & .height-text{
+                top: 50%;
+                transform: translate(0%, -50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="board" style="width: 1820px; height: 910px; border: solid 2px #666">
+
+    </div>
+    <script type="module">
+        import { boxes } from './boxes.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('board').innerHTML = `
+                ${boxes.map(group => `
+                    <div style="display: flex; flex-wrap: wrap; align-items: begin; gap: 2px; margin-bottom: 2px;">
+                        ${group.map(box => `
+                            <div class="box" style="width: ${box.w}px; height: ${box.h}px; background-color: ${box.c};">
+                                <p class="width-text">${box.w}mm</p>
+                                <p class="height-text">${box.h}mm</p>
+                            </div>
+                        `).join("")}
+                    </div>`).join("")
+                }
+            `
+        });
+
+    </script>
+</body>
+</html>
